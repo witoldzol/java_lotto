@@ -38,7 +38,7 @@ public class LottoApp {
 			System.out.println("you pressed yes");
 			return true;
 		} else{
-			System.out.println("Thank you for playing, see you next time!\nHere are your results from all your games:\n");
+			System.out.println("\nThank you for playing, see you next time!\nHere are your results from all your games:\n");
 			return false;
 
 		}
