@@ -20,7 +20,8 @@ public class Lotto{
     private int[] secondSet;
     private int[] thirdSet;
     private int[] results = {7,7,7};
-
+    //obj
+    Random rng = new Random();
     //private ArrayList<int> history;
     //constants
     final int THREE = 9;
@@ -28,27 +29,58 @@ public class Lotto{
     final int FIVE = 1000;
     final String SIX = "OMG,you actually won the lottery!!!!!!!!!!!!!";
 
-
-    //METHODS
-	
     //generate random numbers array
     public void generateLotto(){
 
-	    Random rng = new Random();
+    	//loop until we get non duplicate array
+    	while(true) {
 
-		for(int i = 0; i<6;i++){
-		//generate random number from 0-39 plus 1
-		lottoNumbers[i] = rng.nextInt(39) + 1;
-		}
-	    System.out.println("Lotto numbers are : " + Arrays.toString(lottoNumbers));
+    			for(int i = 0; i<6;i++){
+    			//generate random number from 0-39 plus 1
+    			lottoNumbers[i] = rng.nextInt(39) + 1;
+    			}
+    			//if there are no duplicates, brake the loop
+    			//no very efficient! ... but it works
+    			if(!testForDuplicates(lottoNumbers)){
+    				break;
+    			} 
+
+    	}
+
+		//display numbers
+	    System.out.println("\nLotto numbers are : " + Arrays.toString(lottoNumbers));
+    }	
+
+    //method for checking if there are duplicates in an array
+    private boolean testForDuplicates(int[] arr){
+
+    	for(int i =0; i<arr.length; i++){
+
+    		int counter = 0;
+
+    		for(int j = 0; j<arr.length; j++){
+
+    			if(arr[i] == arr[j]){
+
+    				counter++;
+
+    				if(counter == 2){
+    					return true;
+    				}
+    			}
+    		}
+    	}
+    	return false;
     }
 
+    //compare user input to lotto numbers 
     public void calculateLottoResults(){
-
+    	//if there was only one line
     	if(howManySeries > 0){
     		int matched =0;
+    		//user input array
     		for(int i = 0; i<6; i++){
-
+    			//lotto numbers array
     			for(int j = 0; j<6; j++){
 
     				if(firstSet[i] == lottoNumbers[j]){
@@ -57,11 +89,11 @@ public class Lotto{
 			    }
 		    }
 		    results[0] = matched;
-
+		    //calculate the winnings for this line
 		    calculateWinnings(matched);
 		    System.out.println("\tYou matched "+matched+" number(s) in first line");
 	    }
-
+	    //second line
 	    if(howManySeries > 1){
 		    int matched =0;
 		    for(int i = 0; i<6; i++){
@@ -77,7 +109,7 @@ public class Lotto{
 		    calculateWinnings(matched);
 		    System.out.println("\tYou matched "+matched+" number(s) in second line");
 	    }
-
+	    //thirds line
 	    if(howManySeries == 3){
 		    int matched =0;
 		    for(int i = 0; i<6; i++){
@@ -95,7 +127,10 @@ public class Lotto{
 		    System.out.println("\tYou matched "+matched+" number(s) in third line");
 
 	    }
+
 	    //print out total winnings
+
+	    //check if user actually wins lotto...
 	    if(omgItActuallyHappened){
 		    System.out.println(SIX);
 	    } else {
@@ -122,6 +157,7 @@ public class Lotto{
 	    }
 
     }
+    
     //return array with results
 	public int[] getResults(){
     	return results;

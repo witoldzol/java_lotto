@@ -3,19 +3,29 @@ import java.util.Scanner;
 
 public class LottoApp {
 
+	
 	public static void main(String[] args) {
-
+		//because we don't know how many times user will play
+		//we use arraylist as it has no predefined length
 		ArrayList<Integer> resultHistory = new ArrayList<Integer>();
 		int[] results;
 
+		//obj with the actual game
+		Process process = new Process();
+
+		
+
+		//loop until user decides to stop
 		while(true){
 
-			Process process = new Process();
 			results = process.game();
 			//save results
 			process.saveResults(results,resultHistory);
 
+			//if user decides to stop, break loop
 			if(!playAgain()){
+
+				//display game history so far
 				printHistory(resultHistory);
 				break;
 			}
@@ -27,13 +37,14 @@ public class LottoApp {
 	//method that asks user to play again
 	//can break loop
 	private static boolean playAgain(){
-
+		//obj
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Would you like to play again? Type 'y' if you do");
 
 		String answer = scan.next();
 
+		//if user enters anything other than 'y' or 'yes', end the game
 		if( answer.equals("y") || answer.equals("yes")){
 			System.out.println("you pressed yes");
 			return true;
@@ -44,7 +55,7 @@ public class LottoApp {
 		}
 
 	}
-
+	//method for printing out the history of played games
 	private static void printHistory(ArrayList<Integer> list){
 		int len = list.size();
 		int total = 0;
@@ -71,6 +82,7 @@ public class LottoApp {
 		System.out.println("\nYou have won in total $"+total);
 	}
 
+	//method for calculating winnings
 	private static int calculateWinnings(int total, int matched ){
 		final int THREE = 9;
 		final int FOUR = 54;
@@ -136,7 +148,7 @@ class Process{
 		results = processObj.getResults();
 		return results;
 	}
-
+	//method for saving results
 	public void saveResults(int[] arr, ArrayList<Integer> list){
 		//loop through each element in array with results
 		for( int ele : arr){

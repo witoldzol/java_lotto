@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+//this class takes user input, and makes sure that it is correct
+//checks: number of digits provided, if digits are in valid range, if there are duplicates
 public class LottoInput{
 
 	//Variables
@@ -37,7 +39,7 @@ public class LottoInput{
 
 	//METHODS
 
-
+	//method that starts the game 
 	public void startGame(){
 
 		System.out.println("Welcome to LOTTO GAME.\nHow many sets of numbers would you like to choose? (1-3)");
